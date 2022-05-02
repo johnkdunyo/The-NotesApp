@@ -1,0 +1,176 @@
+import React, { useState } from 'react'
+import Footer from '../components/Footer'
+import MobileNavbar from '../components/MobileNavbar'
+import NoteComponent from '../components/NoteComponent'
+import PageHeader from '../components/PageHeader'
+import SideBar from '../components/SideBar'
+
+// import { SettingsIcon, CommentsIcon, CameraIcon, BirthdayIcon ,FileIcon, CalendarIcon, NoteIcon, TimelineIcon, PaintIcon } from '../Icons'
+import { PaintIcon } from '../Icons'
+ 
+
+
+const NewNote = () => {
+
+    const initialFormData = {
+        title: '',
+        description: '',
+        date: new Date().toDateString(),
+        color: 'white',
+        priority: '',
+    }
+    const [noteForm, setNoteForm ] = useState(initialFormData);
+
+
+const itemColors = [
+    {id: 1, value: 'white'},
+    {id: 2, value: 'warning'},
+    {id: 3, value: 'success'},
+    {id: 4, value: 'dark'},
+    {id: 5, value: 'purple'},
+    {id: 6, value: 'danger'},
+    {id: 7, value: "info"},
+    {id: 8, value: 'primary'}
+]
+
+    
+    const formHandler =(e) => {
+        setNoteForm( {...noteForm, [e.target.name]: e.target.value})
+        console.log(noteForm);
+    }
+
+
+    const onSubmitFormHandler=()=>{
+        // TODO; handle note creationg
+    }
+    console.log(noteForm)
+
+  return (
+    <React.Fragment>
+        <div className='wrapper sidebar-main'>
+            <MobileNavbar />
+            <SideBar />
+            <div className='content-page'>
+                <PageHeader pageTitle='Add new Note' />
+
+                <div className='col-lg-12'>
+                    <div className=''>
+                        <div className=''>
+                        <div className='row'>
+                            <div className="col-md-8">
+                                <div className='card card-block card-stretch card-height p-3'>
+                                <form onSubmit={onSubmitFormHandler}>
+                                    <div className="form-group">
+                                        <label className="label-control">Title</label>
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="title" 
+                                            placeholder="Note Title"  
+                                            value={noteForm.title}
+                                            onChange={formHandler}
+                                            data-change="input" 
+                                            data-custom-target="#note-title"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="label-control">Description</label>
+                                        <textarea 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="description" 
+                                            rows="3" 
+                                            data-change="input" 
+                                            data-custom-target="#note-description" 
+                                            placeholder="Note Description"
+                                            value={noteForm.description}
+                                            onChange={formHandler}
+                                            required>
+                                        </textarea>
+                                    </div>
+                                    {/* <div className="form-group">
+                                        <label className="label-control">Icon</label>
+                                        <div id="icon-button" className='d-flex align-items-center justify-content-between'>
+                                            <button className="btn btn-outline-primary ml-1 active" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <CalendarIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <NoteIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <TimelineIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <FileIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <BirthdayIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <CameraIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <CommentsIcon />
+                                            </button>
+                                            <button className="btn btn-outline-primary ml-1" type="button" data-change="click" data-custom-target="#note-icon">
+                                                <SettingsIcon />
+                                            </button>
+                                        </div>
+                                    </div> */}
+                                    
+                                    <div className='form-group'>
+                                        <label className='label-control'>Note Color</label>
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            {itemColors.map(color=>(
+                                                <button type='button' className={`btn btn-${color.value}`} key={color.id} onClick={()=>setNoteForm({...noteForm, color:color.value})}><PaintIcon /> </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label className="label-control">Priority</label>
+                                        <div>
+                                            <select name="priority" id="" className="form-control" data-change="select" data-custom-target="color" onClick={(e) => setNoteForm({...noteForm, priority:e.target.value})}>
+                                                <option defaultValue value="low" >Low</option>
+                                                <option value="medium">Medium</option>
+                                                <option value="high">High</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className='d-flex align-items-center justify-content-between'>
+                                        <button type="reset" className="btn btn-danger">
+                                            Clear
+                                        </button>
+                                        <button type="submit" className="btn btn-success">
+                                            Save Note
+                                        </button>
+                                    </div>
+    
+                                </form> 
+                                </div>
+                            
+                            </div>
+                            <div className='col-md-4'>
+                                <NoteComponent 
+                                    compColor={noteForm.color} 
+                                    compSize='kk'
+                                    noteTitle={noteForm.title}
+                                    noteDescription={noteForm.description}
+                                    noteDate={noteForm.date}
+                                    notePriority={noteForm.priority}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>               
+
+            </div>
+        </div>
+        <Footer />
+    </React.Fragment>
+  )
+}
+
+export default NewNote
