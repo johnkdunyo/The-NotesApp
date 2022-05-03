@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logOutCurrentUser } from '../redux/reducers/userSlice';
 
 const PageHeader = ({pageTitle}) => {
+    const dispatch = useDispatch();
 
 
   const [userDropDown, setUserDropdown ] = useState('');
@@ -38,10 +41,10 @@ const PageHeader = ({pageTitle}) => {
                                       <span>Edit Profile</span>
                                   </Link>
                                   <hr className="my-1" />
-                                  <Link to="/" className="dropdown-item">
+                                  <button className="dropdown-item" onClick={()=>dispatch(logOutCurrentUser())}>
                                       <i className="las la-sign-out-alt font-size-20 mr-1"></i>
                                       <span>Logout</span>
-                                  </Link>
+                                  </button>
                                 </div>
                                 </div>
                               </li>

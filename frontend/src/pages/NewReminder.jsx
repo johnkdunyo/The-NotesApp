@@ -103,7 +103,7 @@ const NewReminder = () => {
                             
                             </div>
                             <div className='col-md-4'>
-                                <NoteComponent compColor='white' compSize='kk'/>
+                                <NoteComponent noteColor='white' noteSize='kk'/>
                             </div>
                         </div>
                     </div>

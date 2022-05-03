@@ -6,8 +6,11 @@ import SideBar from '../components/SideBar';
 import Footer from '../components/Footer';
 import NoteComponent from '../components/NoteComponent';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
+  const notes = useSelector(state=>state.note.allNotes)
+  // console.log(notes)
   return (
     <React.Fragment>
         <div className='wrapper sidebar-main'>
@@ -28,15 +31,27 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                    <NoteComponent compColor='danger'/>
+
+                    {/* map and display all notes */}
+                    {notes.map(note=>(
+                      <NoteComponent 
+                        key={note._id}
+                        noteColor={note.color}
+                        noteTitle={note.title}
+                        noteDescription={note.description}
+                        notePriority={note.priority}
+                        noteDate={note.createdAt}
+                      />
+                    ))}
+                    {/* <NoteComponent noteColor='danger'/>
                     <NoteComponent />
-                    <NoteComponent compColor='warning'/>
-                    <NoteComponent compColor='info'/>
-                    <NoteComponent compColor='success'/>
-                    {/* <NoteComponent compColor='light'/> */}
-                    <NoteComponent compColor='dark'/>
-                    <NoteComponent compColor='purple'/>
-                    <NoteComponent compColor='white' />
+                    <NoteComponent noteColor='warning'/>
+                    <NoteComponent noteColor='info'/>
+                    <NoteComponent noteColor='success'/>
+                    <NoteComponent noteColor='light'/> 
+                    <NoteComponent noteColor='dark'/>
+                    <NoteComponent noteColor='purple'/>
+                    <NoteComponent noteColor='white' /> */}
 
 
                     </div>

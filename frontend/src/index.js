@@ -4,11 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { fetchAllNotes } from './redux/reducers/noteSlice';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const token=localStorage.getItem('user_token')
+if(token){
+  store.dispatch(fetchAllNotes())
+}
+
+
 root.render(
+
+  <Provider store={store}>
   <React.StrictMode>
     <App />
   </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

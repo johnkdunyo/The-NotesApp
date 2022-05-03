@@ -27,7 +27,7 @@ app.use(logger('dev'));
 
 
 app.get("/", (req, res) => {
-    res.json("Welcome bro")
+    res.json("Welcome to the NotesApp")
 });
 
 app.use('/api/v1', router);

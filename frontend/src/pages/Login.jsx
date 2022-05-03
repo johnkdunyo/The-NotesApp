@@ -1,7 +1,56 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect  } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signInUser } from "../redux/reducers/userSlice";
+
+const loginFormInitialState = {
+    email: '',
+    password: ''
+}
+
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate= useNavigate();
+
+    // check if user is logged in already, if he is, then navigate to home
+    const isLoggedIn = useSelector(state=>state.user.isLoggedIn);
+    useEffect(() => {
+        if(isLoggedIn){
+            navigate('/home')
+        }
+    }, [ ])
+    
+    
+
+    const loginFormError = useSelector(state=>state.user.error);
+
+    const [loginForm, setLoginForm ] = useState(loginFormInitialState);
+    const [isSigningIn, setIsSigningIn] = useState(false);
+
+    const handlerForm = (e)=>{
+        setLoginForm({ ...loginForm, [e.target.name]: e.target.value})
+    }
+
+    const onSubmitFormHandler = async(e) => {
+        e.preventDefault();
+        setIsSigningIn(true)
+
+        // dispatch signin
+        const response = await dispatch(signInUser(loginForm)).unwrap();
+        console.log(response);
+
+        if(response){
+            setIsSigningIn(false)
+        }
+        if(response.status === 200){
+            navigate('/home')
+            window.location.reload();
+        }
+    }
+
+    
+
     return(
         <React.Fragment>
             <div className="wrapper">
@@ -18,21 +67,40 @@ const Login = () => {
                                 </div>      
                                 <h5 className="mb-0">Welcome back 🤩!</h5>
                                 <p className="text-info">Login now, lets get going 🚀</p>
-                                <form>
+                                <form onSubmit={onSubmitFormHandler}>
                                     <div className="row">
                                     <div className="col-lg-12">
                                         <div className="form-group">
-                                            <input className="floating-input form-control" type="email" placeholder="Email" />
+                                            <input 
+                                                className="floating-input form-control" 
+                                                type="email" 
+                                                placeholder="Email" 
+                                                name="email"
+                                                value={loginForm.email}
+                                                onChange={handlerForm}
+                                                autoComplete='email'
+                                                required
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-lg-12">
                                         <div className="form-group">
-                                            <input className="floating-input form-control" type="password" placeholder="Password" />
+                                            <input 
+                                                className="floating-input form-control" 
+                                                type="password" 
+                                                placeholder="Password"
+                                                name="password"
+                                                value={loginForm.password}
+                                                onChange={handlerForm}
+                                                autoComplete='password'
+                                                required
+                                             />
                                         </div>
                                     </div>
+                                    <div className="col-lg-12 mb-3"><p className="text-warning">{loginFormError}</p></div>
                                     <div className="col-lg-6">
                                         <div className="custom-control custom-checkbox mb-3 text-left">
-                                            <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                                            <input type="checkbox" className="custom-control-input" id="customCheck1" required />
                                             <label className="custom-control-label" htmlFor="customCheck1">Remember Me</label>
                                         </div>
                                     </div>
@@ -40,7 +108,7 @@ const Login = () => {
                                         <Link to="/forgotpassword" className="text-primary float-right">Forgot Password 🤔?</Link>
                                     </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Sign In</button>
+                                    <button type="submit" className="btn btn-primary">{ isSigningIn ? 'Signing In 🚀...':'Sign In'}</button>
                                     <p className="mt-3 mb-0">
                                         New User? <Link to='/register'> <b className="text-info">Sign Up</b></Link>
                                     </p>

@@ -5,8 +5,11 @@ import BellIcon from '../Icons/BellIcon';
 import ProfileIcon from '../Icons/ProfileIcon';
 import TrashIcon from '../Icons/TrashIcon';
 import LogoutIcon from '../Icons/LogoutIcon'
+import { useDispatch } from 'react-redux';
+import { logOutCurrentUser } from '../redux/reducers/userSlice';
 
 const MobileNavbar = () => {
+  const dispatch = useDispatch();
 
   const [userDropDown, setUserDropDown ] = useState('');
   const [hamburgerContent, setHamburgerContent] = useState('');
@@ -109,10 +112,10 @@ const MobileNavbar = () => {
                             <span> Settings</span>
                         </Link>
                         <hr className="my-1" />
-                        <Link to="/" className="dropdown-item">
+                        <button className="dropdown-item" onClick={()=>dispatch(logOutCurrentUser())}>
                             <LogoutIcon />
                             <span> Logout</span>
-                        </Link>
+                        </button>
                       </div>
                     </div>
                     

@@ -1,17 +1,17 @@
 import React from 'react'
 
-const ReminderComponent = ({compColor, compSize}) => {
+const ReminderComponent = ({noteColor, noteSize}) => {
 
-    const componentColor =  compColor ? compColor : 'primary';
+    const componentColor =  noteColor ? noteColor : 'primary';
     const noteTitle = 'Note Title';
     const noteText = 'With The NotesApp, you can easily share via message, WhatsApp, emails etc. You can also save your notes and edit it later or can easily delete the note';
     const noteDate = '01 May 2022'
 
-    compSize = compSize ? compSize : "col-lg-4 col-md-6"
+    noteSize = noteSize ? noteSize : "col-lg-4 col-md-6"
 
   return (
     <React.Fragment>
-        <div className={`${compSize}`}>
+        <div className={`${noteSize}`}>
             <div className={`card card-block card-stretch card-height card-bottom-border-${componentColor} note-detail`}>
                 <div className="card-header d-flex justify-content-between pb-1">
                     <div className={`icon iq-icon-box-2 icon-border-${componentColor} rounded`}>
