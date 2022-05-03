@@ -2,13 +2,13 @@ import React from 'react';
 import CalendarIcon from '../Icons/CalendarIcon';
 import MoreVerticalIcon from '../Icons/MoreVerticalIcon';
 
-const NoteComponent = ({compColor, compSize, noteTitle, noteDescription, noteDate, notePriority}) => {
+const NoteComponent = ({noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
 
-    const componentColor =  compColor ? compColor : 'primary';
+    const componentColor =  noteColor ? noteColor : 'primary';
     noteTitle = noteTitle? noteTitle : 'Note Title';
     noteDescription = noteDescription ? noteDescription : 'With The NotesApp, you can easily share via message, WhatsApp, emails etc. You can also save your notes and edit it later or can easily delete the note';
-    noteDate = noteDate ? noteDate : '01 May 2022'
-    notePriority = notePriority ? notePriority : 'high'
+    noteDate = noteDate ? new Date(noteDate).toDateString() : '01 May 2022'
+    notePriority = notePriority ? notePriority : 'low'
 
     // set prirorityIcon
     let notePriorityIcon = 'fi-rr-level-down-alt'
@@ -20,12 +20,12 @@ const NoteComponent = ({compColor, compSize, noteTitle, noteDescription, noteDat
         notePriorityIcon = 'fi-rr-level-down-alt'
     }
 
-    console.log(notePriority)
-    compSize = compSize ? compSize : 'col-lg-4 col-md-6'
+
+    noteSize = noteSize ? noteSize : 'col-lg-4 col-md-6'
 
   return (
     <React.Fragment>
-        <div className={`${compSize}`}>
+        <div className={`${noteSize}`}>
             <div className={`card card-block card-stretch card-height card-bottom-border-${componentColor} note-detail`}>
                 <div className="card-header d-flex justify-content-between pb-0">
                     <div className={`icon iq-icon-box-2 icon-border-${componentColor} rounded`}>

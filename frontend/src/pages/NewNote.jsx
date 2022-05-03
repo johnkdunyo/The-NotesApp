@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import MobileNavbar from '../components/MobileNavbar'
 import NoteComponent from '../components/NoteComponent'
@@ -7,17 +9,20 @@ import SideBar from '../components/SideBar'
 
 // import { SettingsIcon, CommentsIcon, CameraIcon, BirthdayIcon ,FileIcon, CalendarIcon, NoteIcon, TimelineIcon, PaintIcon } from '../Icons'
 import { PaintIcon } from '../Icons'
+import { addNewNote } from '../redux/reducers/noteSlice'
  
 
 
 const NewNote = () => {
+    const dispatch =useDispatch();
+    const navigate = useNavigate();
 
     const initialFormData = {
         title: '',
         description: '',
         date: new Date().toDateString(),
         color: 'white',
-        priority: '',
+        priority: 'low',
     }
     const [noteForm, setNoteForm ] = useState(initialFormData);
 
@@ -36,14 +41,20 @@ const itemColors = [
     
     const formHandler =(e) => {
         setNoteForm( {...noteForm, [e.target.name]: e.target.value})
-        console.log(noteForm);
     }
 
 
-    const onSubmitFormHandler=()=>{
+    const onSubmitFormHandler= async(e)=>{
+        e.preventDefault();
+        console.log(noteForm)
         // TODO; handle note creationg
+        const response = await dispatch(addNewNote(noteForm)).unwrap();
+        if(response.status===201){
+            // note created successfully
+            navigate('/home')
+        }
     }
-    console.log(noteForm)
+    // console.log(noteForm)
 
   return (
     <React.Fragment>
@@ -153,8 +164,8 @@ const itemColors = [
                             </div>
                             <div className='col-md-4'>
                                 <NoteComponent 
-                                    compColor={noteForm.color} 
-                                    compSize='kk'
+                                    noteColor={noteForm.color} 
+                                    noteSize='kk'
                                     noteTitle={noteForm.title}
                                     noteDescription={noteForm.description}
                                     noteDate={noteForm.date}

@@ -21,8 +21,8 @@ const Trash = () => {
                     <div className="col-lg-12">
                     <div className='row'>
 
-                    <ReminderComponent compColor='danger'/>
-                    <NoteComponent compColor='dark' />
+                    <ReminderComponent noteColor='danger'/>
+                    <NoteComponent noteColor='dark' />
 
 
                     </div>

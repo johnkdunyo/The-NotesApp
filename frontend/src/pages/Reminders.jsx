@@ -20,14 +20,14 @@ const Reminders = () => {
                     <div className="col-lg-12">
                     <div className='row'>
 
-                    <ReminderComponent compColor='danger'/>
+                    <ReminderComponent noteColor='danger'/>
                     <ReminderComponent />
-                    <ReminderComponent compColor='warning'/>
-                    <ReminderComponent compColor='info'/>
-                    <ReminderComponent compColor='success'/>
-                    {/* <ReminderComponent compColor='light'/> */}
-                    <ReminderComponent compColor='dark'/>
-                    <ReminderComponent compColor='purple'/>
+                    <ReminderComponent noteColor='warning'/>
+                    <ReminderComponent noteColor='info'/>
+                    <ReminderComponent noteColor='success'/>
+                    {/* <ReminderComponent noteColor='light'/> */}
+                    <ReminderComponent noteColor='dark'/>
+                    <ReminderComponent noteColor='purple'/>
 
 
                     </div>
