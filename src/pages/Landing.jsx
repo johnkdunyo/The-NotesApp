@@ -18,7 +18,7 @@ const Landing = () => {
                          }} */}
 
                     <img src="assets/images/notes_banner.webp" className="img-fluid" alt="notes banner" />
-                    <section>
+                    <div className="hero-section">
                     <div className="container-fluid p-0">
                     <div className="row no-gutters">
                         <div className="col-sm-12 mb-2">
@@ -35,7 +35,7 @@ const Landing = () => {
                         </div>
                     </div>
                     </div>
-                    </section>
+                    </div>
 
                     </div>
 
