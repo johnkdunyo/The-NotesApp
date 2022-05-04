@@ -19,7 +19,7 @@ const Login = () => {
         if(isLoggedIn){
             navigate('/home')
         }
-    }, [ ])
+    }, )
     
     
 
