@@ -1,5 +1,6 @@
 
 const Note = require("../models/Note");
+const mongoose = require('mongoose');
 
 
 exports.addNote = async(req, res, next) => {
@@ -58,6 +59,7 @@ exports.getNoteByID = async(req, res, next) => {
             })
         };
 
+        // console.log(req.params)
         // check is the id passed is valid
         if(!mongoose.isValidObjectId(req.params.id)){
             return res.status(401).json({
@@ -85,6 +87,7 @@ exports.deleteNote = async(req, res, next) => {
             })
         };
 
+        
         // check is the id passed is valid
         if(!mongoose.isValidObjectId(req.params.id)){
             return res.status(401).json({
@@ -92,6 +95,13 @@ exports.deleteNote = async(req, res, next) => {
             });
         }
         const note = await Note.findById(req.params.id).exec();
+        // check if note is deleted already
+        if(note.deleted){
+            return res.status(401).json({
+                message: "Note already deleted"
+            })
+        }
+        // now we can go ahead and delete the note
         note.deleted = 'true';
 
         await note.save();
@@ -101,6 +111,42 @@ exports.deleteNote = async(req, res, next) => {
         })
   
         
+        
+    } catch (error) {
+        next(error)
+    }
+};
+
+
+
+exports.editNote = async(req, res, next) => {
+    try {
+        if(!req.user){
+            return res.status(401).json({
+                message: 'You need to log in order to delete this note'
+            })
+        };
+
+        // check is the id passed is valid
+        if(!mongoose.isValidObjectId(req.params.id)){
+            return res.status(401).json({
+                message: "Query failed, invalid Note ID passed"
+            });
+        }
+        const note = await Note.findById(req.params.id).exec();
+        note.title = req.body.title;
+        note.description = req.body.description;
+        note.color = req.body.color;
+        note.priority = req.body.priority;
+
+        // save document
+        await note.save();
+
+        return res.status(201).json({
+            message: "Note updated successfully"
+        })
+
+        // now update the doc and save it
         
     } catch (error) {
         next(error)

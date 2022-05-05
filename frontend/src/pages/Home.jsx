@@ -36,6 +36,7 @@ const Home = () => {
                     {notes.map(note=>(
                       <NoteComponent 
                         key={note._id}
+                        noteID={note._id}
                         noteColor={note.color}
                         noteTitle={note.title}
                         noteDescription={note.description}

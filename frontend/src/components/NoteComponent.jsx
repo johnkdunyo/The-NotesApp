@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import CalendarIcon from '../Icons/CalendarIcon';
 import MoreVerticalIcon from '../Icons/MoreVerticalIcon';
+import { deleteNote } from '../redux/reducers/noteSlice';
 
-const NoteComponent = ({noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
-
+const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
+    // console.log(noteID)
     const componentColor =  noteColor ? noteColor : 'primary';
     noteTitle = noteTitle? noteTitle : 'Note Title';
     noteDescription = noteDescription ? noteDescription : 'With The NotesApp, you can easily share via message, WhatsApp, emails etc. You can also save your notes and edit it later or can easily delete the note';
@@ -21,7 +24,16 @@ const NoteComponent = ({noteColor, noteSize, noteTitle, noteDescription, noteDat
     }
 
 
-    noteSize = noteSize ? noteSize : 'col-lg-4 col-md-6'
+    noteSize = noteSize ? noteSize : 'col-lg-4 col-md-6';
+
+    const dispatch = useDispatch();
+    const [optionsOpen, ssetOptionsOpen] = useState(false);
+
+
+    const onClickOptionsHandler =()=>{
+        ssetOptionsOpen(prev=>!prev)
+        // console.log(optionsOpen)
+    }
 
   return (
     <React.Fragment>
@@ -33,16 +45,16 @@ const NoteComponent = ({noteColor, noteSize, noteTitle, noteDescription, noteDat
                     </div>
                     
                     <div className="card-header-toolbar d-flex align-items-center">
-                        <div className="dropdown">
+                        <div className="dropdown show">
                             <span className="dropdown-toggle dropdown-bg" id="note-dropdownMenuButton4"
-                                data-toggle="dropdown" aria-expanded="false" role="button">
-                                <MoreVerticalIcon />
+                                data-toggle="dropdown" role="button"  onClick={onClickOptionsHandler}>
+                                <MoreVerticalIcon  />
                             </span>
-                            <div className="dropdown-menu dropdown-menu-right"
+                            <div className={`dropdown-menu dropdown-menu-right ${optionsOpen && 'show'} `}
                                 aria-labelledby="note-dropdownMenuButton4">
-                                <p className="dropdown-item new-note1" data-toggle="modal" data-target="#new-note1"><i className="las la-eye mr-3"></i>View</p>
-                                <p className="dropdown-item edit-note1" data-toggle="modal" data-target="#edit-note1"><i className="las la-pen mr-3"></i>Edit</p>
-                                <p className="dropdown-item" data-extra-toggle="delete" data-closest-elem=".card" href="#"><i className="las la-trash-alt mr-3"></i>Delete</p>
+                                <p className="dropdown-item text-dark" ><i className="fi-rr-eye mr-3"></i>View</p>
+                                <Link to={`/editnote/${noteID}`}> <p className="dropdown-item text-dark" ><i className="fi-rr-edit-alt mr-3"></i>Edit</p> </Link>
+                                <p className="dropdown-item text-dark" onClick={()=>dispatch(deleteNote(noteID))} ><i className="fi-rr-delete-document mr-3"></i>Delete</p>
                             </div>
                         </div>
                     </div>

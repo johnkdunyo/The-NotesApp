@@ -18,6 +18,7 @@ import Trash from "./pages/Trash";
 import NewNote from "./pages/NewNote";
 import NewReminder from "./pages/NewReminder"
 import ErrorPage from "./pages/ErrorPage";
+import EditNote from "./pages/EditNote";
 
 const token = localStorage.getItem('user_token');
 
@@ -61,6 +62,7 @@ function App() {
 
             <Route exact path="/newnote" element={<NewNote /> } />
             <Route exact path="/newreminder" element={<NewReminder /> } />
+            <Route exact path="/editnote/:noteID" element={<EditNote />} />
           </Route>
 
           <Route path="*" element={<ErrorPage /> } />
