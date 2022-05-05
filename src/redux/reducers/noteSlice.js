@@ -9,13 +9,25 @@ const initialState= {
 
 const baseURL = 'https://the-notesapp-backend.herokuapp.com/api/v1';
 
-const token = localStorage.getItem('user_token')
+const token = localStorage.getItem('user_token');
 const config = {
     headers: { Authorization: `Bearer ${token}` }
 };
 
 
-
+export const restoreDeletedNote = createAsyncThunk('note/restoreDeletedNote', async(noteID)=>{
+    console.log(config)
+    try {
+        const response = await axios.put(`${baseURL}/note/restore/${noteID}`, config);
+        console.log(response)
+        const data = {status:response.status, message:response.data.message, data:response.config.data}
+        return data
+    } catch (error) {
+        console.log(error.response)
+        const data = {status:error.response.status, errorMessage:error.response.data || error.response.data.message}
+        return data;
+    }
+});
 
 export const fetchAllNotes = createAsyncThunk('note/fetchAll', async() => {
     try {
@@ -41,7 +53,36 @@ export const addNewNote = createAsyncThunk('note/addNote', async(noteData) => {
         const data = {status:error.response.status, errorMessage:error.response.data || error.response.data.message}
         return data;
     }
-})
+});
+
+export const updateNote = createAsyncThunk('note/updateNote', async(updatedNoteData, noteID)=>{
+    try {
+        const response = await axios.put(`${baseURL}/note/${noteID}`, updatedNoteData, config);
+        console.log(response);
+        const data = {status:response.status, message:response.data.message, data:response.config.data}
+        return data
+    } catch (error) {
+        console.log(error.response)
+        const data = {status:error.response.status, errorMessage:error.response.data || error.response.data.message}
+        return data;
+    }
+});
+
+export const deleteNote = createAsyncThunk('note/deleteNote', async(noteID) => {
+    try {
+        const response = await axios.delete(`${baseURL}/note/${noteID}`, config);
+        console.log(response);
+        const data = {status:response.status, message:response.data.message, data:response.config.data}
+        return data
+    } catch (error) {
+        console.log(error.response)
+        const data = {status:error.response.status, errorMessage:error.response.data || error.response.data.message}
+        return data;
+    }
+});
+
+
+
 
 
 const noteSlice = createSlice({
@@ -51,7 +92,8 @@ const noteSlice = createSlice({
     extraReducers:(builder)=>{
         builder.addCase(fetchAllNotes.pending, (state, action)=>{
             // console.log(action)
-            state.status = 'Query pending'
+            state.status = 'Query pending' 
+            state.error = null
         })
         builder.addCase(fetchAllNotes.rejected, (state, action)=>{
             console.log(action)
@@ -74,6 +116,7 @@ const noteSlice = createSlice({
         builder.addCase(addNewNote.pending, (state, action)=>{
             console.log(action);
             state.status = 'Query pending'
+            state.error = null
         })
         builder.addCase(addNewNote.rejected, (state, action)=> {
             console.log(action)
@@ -91,6 +134,50 @@ const noteSlice = createSlice({
             }
             
         })
+
+        // cases for delele note
+        builder.addCase(deleteNote.rejected, (state, action)=>{
+            state.status = 'Query failed';
+        })
+        builder.addCase(deleteNote.pending, (state, action) => {
+            state.status = 'Query pending';
+            state.error = null
+        })
+        builder.addCase(deleteNote.fulfilled, (state, action)=>{
+            console.log(action.payload)
+            if(action.payload.status === 401){
+                state.error = action.payload.errorMessage
+                state.status = 'Query failed'
+            }else if( action.payload.status === 201){
+                state.error = null
+                state.status = 'Query successful'
+            }
+            
+        })
+
+
+        // cases for restore note
+        builder.addCase(restoreDeletedNote.rejected, (state, action)=>{
+            state.status = 'Query failed';
+        })
+        builder.addCase(restoreDeletedNote.pending, (state, action) => {
+            state.status = 'Query pending';
+            state.error = null
+        })
+        builder.addCase(restoreDeletedNote.fulfilled, (state, action)=>{
+            console.log(action.payload)
+            if(action.payload.status === 401){
+                state.error = action.payload.errorMessage
+                state.status = 'Query failed'
+            }else if( action.payload.status === 201){
+                state.error = null
+                state.status = 'Query successful'
+            }
+            
+        })
+
+
+
     }
 
 })

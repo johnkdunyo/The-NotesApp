@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CalendarIcon from '../Icons/CalendarIcon';
 import MoreVerticalIcon from '../Icons/MoreVerticalIcon';
-import { deleteNote } from '../redux/reducers/noteSlice';
+import { restoreDeletedNote } from '../redux/reducers/noteSlice';
 
 // sweet alert configurationss
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
-const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
+const DeleteNoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
     // console.log(noteID)
     const componentColor =  noteColor ? noteColor : 'primary';
     noteTitle = noteTitle? noteTitle : 'Note Title';
@@ -40,21 +40,21 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription,
         // console.log(optionsOpen)
     }
 
-    const onClickDeleteNote = (e) => {
+    const onClickRestoreNote = (e) => {
         e.preventDefault();
         MySwal
         .fire({
-            title: "Are you sure you want to delete this note?",
-            text: "This action is irreversible",
+            title: "Are you sure you want to restore this note?",
+            // text: "This action is irreversible",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#f674ad',
             cancelButtonColor: '#8ac3a3',
-            confirmButtonText: "Yes, delete it",
+            confirmButtonText: "Yes, restore it",
             showLoaderOnConfirm: true,
             preConfirm: async() => {
                 try {
-                    const response = await dispatch(deleteNote(noteID)).unwrap();
+                    const response = await dispatch(restoreDeletedNote(noteID)).unwrap();
                     console.log(response)
                 } catch (error) {
                     return error.response.message
@@ -64,8 +64,8 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription,
         .then(result=>{
             if(result.isConfirmed){
                 MySwal.fire(
-                    'Deleted!',
-                    'Note deleted successfully',
+                    'Restored!',
+                    'Note restored successfully',
                     'success'
                 );
                 // window.location.reload();
@@ -96,7 +96,7 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription,
                                 aria-labelledby="note-dropdownMenuButton4">
                                 <p className="dropdown-item text-dark" ><i className="fi-rr-eye mr-3"></i>View</p>
                                 <Link to={`/editnote/${noteID}`}> <p className="dropdown-item text-dark" ><i className="fi-rr-edit-alt mr-3"></i>Edit</p> </Link>
-                                <p className="dropdown-item text-dark" onClick={onClickDeleteNote} ><i className="fi-rr-delete-document mr-3"></i>Delete</p>
+                                <p className="dropdown-item text-dark" onClick={onClickRestoreNote} ><i className="fi-rr-delete-document mr-3"></i>Restore</p>
                             </div>
                         </div>
                     </div>
@@ -132,4 +132,4 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription,
   )
 }
 
-export default NoteComponent
+export default DeleteNoteComponent

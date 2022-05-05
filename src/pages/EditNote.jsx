@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import React, { useState} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 import Footer from '../components/Footer'
 import MobileNavbar from '../components/MobileNavbar'
 import NoteComponent from '../components/NoteComponent'
@@ -13,16 +13,28 @@ import { addNewNote } from '../redux/reducers/noteSlice'
  
 
 
-const NewNote = () => {
+const EditNote = () => {
+    // get noteID from use params
+    const { noteID } = useParams();
+    // console.log(noteID)
+
+    // get note doc by noteID from redux
+   const note = useSelector(state=>state.note.allNotes.find((note)=>note._id===noteID));
+ 
+   console.log(note.title)
+
+    
+    
+
     const dispatch =useDispatch();
     const navigate = useNavigate();
 
     const initialFormData = {
-        title: '',
-        description: '',
-        date: new Date().toDateString(),
-        color: 'white',
-        priority: 'low',
+        title: note.title,
+        description: note.description,
+        date: note.date,
+        color: note.color,
+        priority: note.priority,
     }
     const [noteForm, setNoteForm ] = useState(initialFormData);
     const [isCreatingNote, setIsCreatingNote ] = useState(false);
@@ -65,7 +77,7 @@ const itemColors = [
             <MobileNavbar />
             <SideBar />
             <div className='content-page'>
-                <PageHeader pageTitle='Add new Note' />
+                <PageHeader pageTitle='Edit Note' />
 
                 <div className='col-lg-12'>
                     <div className=''>
@@ -154,10 +166,10 @@ const itemColors = [
                                     </div>
                                     <div className='d-flex align-items-center justify-content-between'>
                                         <button type="reset" className="btn btn-danger">
-                                            Clear
+                                            Cancel
                                         </button>
                                         <button type="submit" className="btn btn-success">
-                                            {isCreatingNote ? 'Creating your note ✨' :  'Create Note'}
+                                            {isCreatingNote ? 'Saving your note ✨' :  'Save Note'}
                                         </button>
                                     </div>
     
@@ -187,4 +199,4 @@ const itemColors = [
   )
 }
 
-export default NewNote
+export default EditNote
