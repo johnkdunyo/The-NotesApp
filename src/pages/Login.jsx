@@ -1,7 +1,6 @@
 import React, { useState, useEffect  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { clearAllErrors } from "../redux/reducers/noteSlice";
 import { signInUser } from "../redux/reducers/userSlice";
 
 const loginFormInitialState = {
@@ -14,9 +13,6 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate= useNavigate();
 
-    // // clear all errors
-    dispatch(clearAllErrors());
-
 
     // check if user is logged in already, if he is, then navigate to home
     const isLoggedIn = useSelector(state=>state.user.isLoggedIn);
@@ -28,10 +24,11 @@ const Login = () => {
     
     
 
-    const loginFormError = useSelector(state=>state.user.error);
+
 
     const [loginForm, setLoginForm ] = useState(loginFormInitialState);
     const [isSigningIn, setIsSigningIn] = useState(false);
+    const [loginFormError, setLoginFormError] = useState('')
 
     const handlerForm = (e)=>{
         setLoginForm({ ...loginForm, [e.target.name]: e.target.value})
@@ -44,6 +41,7 @@ const Login = () => {
         // dispatch signin
         const response = await dispatch(signInUser(loginForm)).unwrap();
         console.log(response);
+        // loginFormError = useSelector(state=>state.user.error);
 
         if(response){
             setIsSigningIn(false)
@@ -51,6 +49,9 @@ const Login = () => {
         if(response.status === 200){
             navigate('/home')
             window.location.reload();
+        }else {
+            console.log('log in failed: ', response.message)
+            setLoginFormError(response.message);
         }
     }
 

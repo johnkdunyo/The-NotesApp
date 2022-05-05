@@ -91,6 +91,8 @@ const noteSlice = createSlice({
     reducers: {
         clearAllErrors: (state) =>{
             state.error = null;
+            console.log('clear all errors clicked: ', state )
+            
         }
     },
     extraReducers:(builder)=>{

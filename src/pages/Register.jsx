@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate,  } from "react-router-dom";
-import { clearAllErrors } from "../redux/reducers/noteSlice";
 import { signUpUSer } from "../redux/reducers/userSlice";
 
 const signupFormInitialState = {
@@ -15,8 +14,7 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // clear all errors
-    dispatch(clearAllErrors());
+   
 
     // check if user is logged in already, if he is, then navigate to home
     const isLoggedIn = useSelector(state=>state.user.isLoggedIn);
@@ -27,11 +25,10 @@ const Register = () => {
       }
     }, [isLoggedIn, navigate])
 
-    const signupFormError = useSelector(state=>state.user.error)
-
     const [signupForm, setSignupForm] = useState(signupFormInitialState);
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSigningUp, setIsSigningUp] = useState(false);
+    const [signupFormError, setSignupFormError] = useState('');
 
     const formHandler = (e) => {
         setSignupForm({...signupForm, [e.target.name]:e.target.value});
@@ -47,7 +44,9 @@ const Register = () => {
         if(response.status === 200){
             console.log('gfdcfhcfgdx')
             navigate('/home')
-
+        }
+        else{
+            setSignupFormError(response.message)
         }
     }
 
