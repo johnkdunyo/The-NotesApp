@@ -151,4 +151,46 @@ exports.editNote = async(req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
+};
+
+
+
+exports.restoreDeletedNote = async(req, res, next) => {
+    console.log(req)
+    try {
+        if(!req.user){
+            return res.status(401).json({
+                message: 'You need to log in order to restore this note'
+            })
+        };
+
+        
+        // check is the id passed is valid
+        if(!mongoose.isValidObjectId(req.params.id)){
+            return res.status(401).json({
+                message: "Query failed, invalid Note ID passed"
+            });
+        }
+        const note = await Note.findById(req.params.id).exec();
+        // check if note is deleted already
+        if(!note.deleted){
+            return res.status(401).json({
+                message: "Note already restored"
+            })
+        }
+        console.log(note)
+        // now we can go ahead and restore the note
+        note.deleted = 'false';
+
+        await note.save();
+
+        return res.status(201).json({
+            message: "Note restored successfully"
+        })
+  
+        
+        
+    } catch (error) {
+        next(error)
+    }
+};

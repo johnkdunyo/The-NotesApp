@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
-  const notes = useSelector(state=>state.note.allNotes)
+  const notes = useSelector(state=>state.note.allNotes.filter(note=>note.deleted===false));
   // console.log(notes)
   return (
     <React.Fragment>
