@@ -88,7 +88,13 @@ export const deleteNote = createAsyncThunk('note/deleteNote', async(noteID) => {
 const noteSlice = createSlice({
     name: 'note',
     initialState,
-    reducer: {},
+    reducers: {
+        clearAllErrors: (state) =>{
+            state.error = null;
+            console.log('clear all errors clicked: ', state )
+            
+        }
+    },
     extraReducers:(builder)=>{
         builder.addCase(fetchAllNotes.pending, (state, action)=>{
             // console.log(action)
@@ -182,6 +188,6 @@ const noteSlice = createSlice({
 
 })
 
-
+export const { clearAllErrors } = noteSlice.actions;
 
 export default noteSlice.reducer;

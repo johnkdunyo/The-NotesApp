@@ -14,6 +14,8 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+   
+
     // check if user is logged in already, if he is, then navigate to home
     const isLoggedIn = useSelector(state=>state.user.isLoggedIn);
     console.log('isLoggefin fron signup: ', isLoggedIn)
@@ -23,11 +25,10 @@ const Register = () => {
       }
     }, [isLoggedIn, navigate])
 
-    const signupFormError = useSelector(state=>state.user.error)
-
     const [signupForm, setSignupForm] = useState(signupFormInitialState);
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSigningUp, setIsSigningUp] = useState(false);
+    const [signupFormError, setSignupFormError] = useState('');
 
     const formHandler = (e) => {
         setSignupForm({...signupForm, [e.target.name]:e.target.value});
@@ -43,7 +44,9 @@ const Register = () => {
         if(response.status === 200){
             console.log('gfdcfhcfgdx')
             navigate('/home')
-
+        }
+        else{
+            setSignupFormError(response.message)
         }
     }
 

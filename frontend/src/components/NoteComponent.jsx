@@ -68,7 +68,7 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription,
                     'Note deleted successfully',
                     'success'
                 );
-                // window.location.reload();
+                window.location.reload();
             }
         });
 
