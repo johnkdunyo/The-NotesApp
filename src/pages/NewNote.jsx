@@ -55,6 +55,7 @@ const itemColors = [
             // note created successfully
             setIsCreatingNote(false)
             navigate('/home')
+            window.location.reload();
         }
     }
     // console.log(noteForm)

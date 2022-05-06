@@ -1571,7 +1571,20 @@ textarea.form-control {
   height: auto; }
 
 .form-group {
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+position: relative; }
+
+  .form-group .pass-eye {
+    z-index: 9999;
+    position: absolute;
+    top: 30%;
+    right: 10px;
+  }
+
+/* .form-group i  {
+  margin-left: 13rem !important;
+  top: 4px;
+} */
 
 .form-text {
   display: block;
@@ -22487,3 +22500,4 @@ i {
   object-fit: cover;
   filter: brightness(.4);
 }
+

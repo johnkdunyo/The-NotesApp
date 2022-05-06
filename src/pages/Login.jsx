@@ -29,6 +29,7 @@ const Login = () => {
     const [loginForm, setLoginForm ] = useState(loginFormInitialState);
     const [isSigningIn, setIsSigningIn] = useState(false);
     const [loginFormError, setLoginFormError] = useState('')
+    const [showPassword, setShowPassword] = useState(false);
 
     const handlerForm = (e)=>{
         setLoginForm({ ...loginForm, [e.target.name]: e.target.value})
@@ -54,6 +55,8 @@ const Login = () => {
             setLoginFormError(response.message);
         }
     }
+
+
 
     
 
@@ -93,7 +96,7 @@ const Login = () => {
                                         <div className="form-group">
                                             <input 
                                                 className="floating-input form-control" 
-                                                type="password" 
+                                                type={showPassword ? 'text': 'password'}
                                                 placeholder="Password"
                                                 name="password"
                                                 value={loginForm.password}
@@ -101,6 +104,12 @@ const Login = () => {
                                                 autoComplete='password'
                                                 required
                                              />
+                                             <div className="pass-eye" onClick={()=>setShowPassword(prev=>!prev)}>
+                                                <i className="fi-rr-eye"></i>
+                                             </div>
+                                            
+                                            
+                                             
                                         </div>
                                     </div>
                                     <div className="col-lg-12 mb-3"><p className="text-warning">{loginFormError}</p></div>
