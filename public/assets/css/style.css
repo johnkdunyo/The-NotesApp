@@ -21969,7 +21969,7 @@ fieldset[disabled] .btn {
   font-size: 26px;
   text-decoration: none; }
 
-.profile-overly {
+.my-profile-overly {
   position: absolute;
   left: 0px;
   bottom: -45px;
@@ -21979,7 +21979,7 @@ fieldset[disabled] .btn {
   text-align: center;
   border-radius: 10px 10px 0 0; }
 
-  .profile-overly img {
+  .my-profile-overly img {
     height: 140px;
     width: 140px;
     float: left !important;
@@ -21988,7 +21988,7 @@ fieldset[disabled] .btn {
     border-radius: 90px;
   }
 
-  .profile-edit-button {
+  .my-profile-edit-button {
     /* padding-top: 40px; */
     position: absolute;
     left: auto;
@@ -21998,15 +21998,24 @@ fieldset[disabled] .btn {
 
   }
 
+  .my-profile-details {
+    padding-left: 20px;
+    padding-top: 10px;
+    border-bottom: 1px solid #DCDDDF;
+  }
+
+  .my-profile-details-item  .emoji{
+    font-size: 25px;
+  }
+
   @media (max-width: 479px) {
-    .profile-overly h3 {
+    .my-profile-overly h3 {
       font-size: 14px; } 
-    .profile-overly img {
+    .my-profile-overly img {
       height: 100px;
       width: 100px;
     }
-    
-    }
+   
 
  
 
