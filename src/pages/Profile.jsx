@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import MobileNavbar from '../components/MobileNavbar'
 import PageHeader from '../components/PageHeader'
 import SideBar from '../components/SideBar'
-import { CalendarIcon } from '../Icons'
 
 const Profile = () => {
     const user = useSelector(state=>state.user.user)
