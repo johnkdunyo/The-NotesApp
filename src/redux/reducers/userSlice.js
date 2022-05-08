@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import API from '../../network/api';
 
 
 const initialState = {
@@ -36,6 +37,18 @@ export const signUpUSer = createAsyncThunk('user/signup', async(userData)=>{
         const data = {status:response.status, token:response.data.data.token}
         return data  
     } catch (error){
+        console.log(error.response)
+        const data= {message:error.response.data.message, status:error.response.status};
+        return data;
+    }
+});
+
+export const getUser = createAsyncThunk('user/getInfo', async() => {
+    try {
+        const response = await API.get('/me');
+        console.log(response)
+        
+    } catch (error) {
         console.log(error.response)
         const data= {message:error.response.data.message, status:error.response.status};
         return data;
