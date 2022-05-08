@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
+import API from '../../network/api'
 
 const initialState= {
     allNotes: [],
@@ -7,18 +7,17 @@ const initialState= {
     error: null
 };
 
-const baseURL = 'https://the-notesapp-backend.herokuapp.com/api/v1';
+// const baseURL = 'https://the-notesapp-backend.herokuapp.com/api/v1';
 
-const token = localStorage.getItem('user_token');
-const config = {
-    headers: { Authorization: `Bearer ${token}` }
-};
+// const token = localStorage.getItem('user_token');
+// const config = {
+//     headers: { Authorization: `Bearer ${token}` }
+// };
 
 
 export const restoreDeletedNote = createAsyncThunk('note/restoreDeletedNote', async(noteID)=>{
-    console.log(config)
     try {
-        const response = await axios.put(`${baseURL}/note/restore/${noteID}`, config);
+        const response = await API.put(`/note/restore/${noteID}`);
         console.log(response)
         const data = {status:response.status, message:response.data.message, data:response.config.data}
         return data
@@ -31,7 +30,7 @@ export const restoreDeletedNote = createAsyncThunk('note/restoreDeletedNote', as
 
 export const fetchAllNotes = createAsyncThunk('note/fetchAll', async() => {
     try {
-        const response = await axios.get(`${baseURL}/note`, config);
+        const response = await API.get(`/note`);
         // create a data object with query data and status
         const data = {status:response.status, data:response.data.data}
         return data;
@@ -44,7 +43,7 @@ export const fetchAllNotes = createAsyncThunk('note/fetchAll', async() => {
 
 export const addNewNote = createAsyncThunk('note/addNote', async(noteData) => {
     try {
-        const response = await axios.post(`${baseURL}/note`, noteData, config);
+        const response = await API.post(`/note`, noteData);
         // console.log(response)
         const data = {status:response.status, message:response.data.message, data:response.config.data}
         return data
@@ -57,7 +56,7 @@ export const addNewNote = createAsyncThunk('note/addNote', async(noteData) => {
 
 export const updateNote = createAsyncThunk('note/updateNote', async(updatedNoteData, noteID)=>{
     try {
-        const response = await axios.put(`${baseURL}/note/${noteID}`, updatedNoteData, config);
+        const response = await API.put(`/note/${noteID}`, updatedNoteData);
         console.log(response);
         const data = {status:response.status, message:response.data.message, data:response.config.data}
         return data
@@ -70,7 +69,7 @@ export const updateNote = createAsyncThunk('note/updateNote', async(updatedNoteD
 
 export const deleteNote = createAsyncThunk('note/deleteNote', async(noteID) => {
     try {
-        const response = await axios.delete(`${baseURL}/note/${noteID}`, config);
+        const response = await API.delete(`/note/${noteID}`);
         console.log(response);
         const data = {status:response.status, message:response.data.message, data:response.config.data}
         return data

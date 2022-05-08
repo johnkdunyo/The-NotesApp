@@ -68,7 +68,7 @@ const DeleteNoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescri
                     'Note restored successfully',
                     'success'
                 );
-                // window.location.reload();
+                window.location.reload();
             }
         });
 

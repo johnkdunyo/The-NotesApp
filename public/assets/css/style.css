@@ -21971,13 +21971,44 @@ fieldset[disabled] .btn {
 
 .profile-overly {
   position: absolute;
-  left: auto;
-  bottom: 0;
+  left: 0px;
+  bottom: -45px;
   right: 0;
-  background: #fff;
-  padding: 10px 30px;
+  /* background: #fff; */
+  /* padding: 10px 30px; */
   text-align: center;
   border-radius: 10px 10px 0 0; }
+
+  .profile-overly img {
+    height: 140px;
+    width: 140px;
+    float: left !important;
+    margin-left: 26px;
+    border:5px solid #fff;
+    border-radius: 90px;
+  }
+
+  .profile-edit-button {
+    /* padding-top: 40px; */
+    position: absolute;
+    left: auto;
+    right: 0px;
+    margin-right:26px ;
+    /* bottom: -25px; */
+
+  }
+
+  @media (max-width: 479px) {
+    .profile-overly h3 {
+      font-size: 14px; } 
+    .profile-overly img {
+      height: 100px;
+      width: 100px;
+    }
+    
+    }
+
+ 
 
 ul.iq-contact-rest li a p {
   word-break: break-all; }
@@ -22011,9 +22042,7 @@ ul.iq-contact-rest li a p {
     font-size: 13px;
     line-height: 26px; }
 
-@media (max-width: 479px) {
-  .profile-overly h3 {
-    font-size: 14px; } }
+
 
 .subscriber-detail .title {
   padding: 5px 20px;
