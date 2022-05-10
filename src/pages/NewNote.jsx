@@ -20,7 +20,6 @@ const NewNote = () => {
     const navigate = useNavigate();
 
     const initialFormData = {
-        title: '',
         description: '',
         date: new Date().toDateString(),
         color: 'white',
@@ -28,7 +27,7 @@ const NewNote = () => {
     }
     const [noteForm, setNoteForm ] = useState(initialFormData);
     const [isCreatingNote, setIsCreatingNote ] = useState(false);
-    const [ textDescription, setTextDescription] = useState();
+    const [ description, setDescription] = useState();
 
 
     const itemColors = [
@@ -43,20 +42,21 @@ const NewNote = () => {
     ]
 
     
-    const formHandler =(e) => {
-        setNoteForm( {...noteForm, [e.target.name]: e.target.value})
-    }
+    // const formHandler =(e) => {
+    //     setNoteForm( {...noteForm, [e.target.name]: e.target.value})
+    // }
 
     // custom handlder for the text description
     const onChangeHandler = (value) => {
-        setTextDescription(value)
+        setDescription(value)
     }
 
 
     const onSubmitFormHandler= async(e)=>{
         e.preventDefault();
         setIsCreatingNote(true)
-        // console.log(noteForm)
+        noteForm.description = description;
+        console.log(noteForm)
         // TODO; handle note creationg
         const response = await dispatch(addNewNote(noteForm)).unwrap();
         if(response.status===201){
@@ -67,7 +67,7 @@ const NewNote = () => {
         }
     }
     // console.log(noteForm)
-    console.log(textDescription)
+    console.log(description)
 
   return (
     <React.Fragment>
@@ -100,7 +100,7 @@ const NewNote = () => {
                                     </div> */}
                                     <div className="form-group">
                                         <label className="label-control">New Note</label>
-                                        <QuillTextBox  onChangeHandler={onChangeHandler} value={textDescription} />
+                                        <QuillTextBox  onChangeHandler={onChangeHandler} value={description} />
                                         {/* <textarea 
                                             type="text" 
                                             className="form-control" 
@@ -180,8 +180,8 @@ const NewNote = () => {
                                 <NewNoteComponent 
                                     noteColor={noteForm.color} 
                                     noteSize='kk'
-                                    noteTitle={noteForm.title}
-                                    noteDescription={textDescription}
+                                    // noteTitle={noteForm.title}
+                                    noteDescription={description}
                                     noteDate={noteForm.date}
                                     notePriority={noteForm.priority}
                                 />

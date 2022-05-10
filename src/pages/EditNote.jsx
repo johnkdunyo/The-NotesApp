@@ -5,11 +5,12 @@ import Footer from '../components/Footer'
 import MobileNavbar from '../components/MobileNavbar'
 import NoteComponent from '../components/NoteComponent'
 import PageHeader from '../components/PageHeader'
+import QuillTextBox from '../components/QuillTextBox'
 import SideBar from '../components/SideBar'
 
 // import { SettingsIcon, CommentsIcon, CameraIcon, BirthdayIcon ,FileIcon, CalendarIcon, NoteIcon, TimelineIcon, PaintIcon } from '../Icons'
 import { PaintIcon } from '../Icons'
-import { addNewNote } from '../redux/reducers/noteSlice'
+import { updateNote } from '../redux/reducers/noteSlice'
  
 
 
@@ -20,8 +21,9 @@ const EditNote = () => {
 
     // get note doc by noteID from redux
    const note = useSelector(state=>state.note.allNotes.find((note)=>note._id===noteID));
+//    console.log(note._id)
  
-   console.log(note.title)
+//    console.log(note.title)
 
     
     
@@ -30,14 +32,16 @@ const EditNote = () => {
     const navigate = useNavigate();
 
     const initialFormData = {
-        title: note.title,
         description: note.description,
         date: note.date,
         color: note.color,
         priority: note.priority,
+        id:note._id
     }
     const [noteForm, setNoteForm ] = useState(initialFormData);
     const [isCreatingNote, setIsCreatingNote ] = useState(false);
+
+    const [description, setDescription] = useState(note.description);
 
 
 const itemColors = [
@@ -52,8 +56,12 @@ const itemColors = [
 ]
 
     
-    const formHandler =(e) => {
-        setNoteForm( {...noteForm, [e.target.name]: e.target.value})
+    // const formHandler =(e) => {
+    //     setNoteForm( {...noteForm, [e.target.name]: e.target.value})
+    // }
+
+    const onChangeHandler = (value) => {
+        setDescription(value)
     }
 
 
@@ -61,12 +69,14 @@ const itemColors = [
         e.preventDefault();
         setIsCreatingNote(true)
         // console.log(noteForm)
+        noteForm.description = description
         // TODO; handle note creationg
-        const response = await dispatch(addNewNote(noteForm)).unwrap();
+        const response = await dispatch(updateNote(noteForm)).unwrap();
         if(response.status===201){
             // note created successfully
             setIsCreatingNote(false)
             navigate('/home')
+            window.location.reload();
         }
     }
     // console.log(noteForm)
@@ -86,7 +96,7 @@ const itemColors = [
                             <div className="col-md-8">
                                 <div className='card card-block card-stretch card-height p-3'>
                                 <form onSubmit={onSubmitFormHandler}>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label className="label-control">Title</label>
                                         <input 
                                             type="text" 
@@ -99,10 +109,11 @@ const itemColors = [
                                             data-custom-target="#note-title"
                                             required
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="form-group">
                                         <label className="label-control">Description</label>
-                                        <textarea 
+                                        <QuillTextBox  onChangeHandler={onChangeHandler} value={description} />
+                                        {/* <textarea 
                                             type="text" 
                                             className="form-control" 
                                             name="description" 
@@ -113,7 +124,7 @@ const itemColors = [
                                             value={noteForm.description}
                                             onChange={formHandler}
                                             required>
-                                        </textarea>
+                                        </textarea> */}
                                     </div>
                                     {/* <div className="form-group">
                                         <label className="label-control">Icon</label>
