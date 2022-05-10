@@ -25,7 +25,7 @@ const Landing = () => {
                                 <div className="landing">
                                 {/* <img src="assets/images/notes_banner.webp" className="img-fluid" alt="notes banner" /> */}
                                 <div className="text-center p-5">
-                                    <h2 className="mt-4 mb-3 display-3">The NotesApp</h2>
+                                    <h2 className="mt-4 mb-3 display-3 text-white">The NotesApp</h2>
                                     <h4 className="mb-4 text-white">
                                         A <span className="text-success">simple</span>, <span className="text-warning">easy-to-use</span>, <span className="text-danger">absolutely free</span>, <span className="text-purple">fast and efficient</span> note taking software.
                                     </h4>

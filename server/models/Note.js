@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 // create not schema
 const NoteSchema = new Schema({
-    title: {
-        type: String,
-        required: true,
-        trim: true
-    },
     description: {
         type: String,
         required: true,

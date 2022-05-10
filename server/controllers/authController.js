@@ -4,6 +4,7 @@ const crypto = require("crypto");
 
 // get user model
 const User = require("../models/User");
+const { default: mongoose } = require('mongoose');
 
 
 exports.userSignUp = async(req, res, next) => {
@@ -103,4 +104,30 @@ exports.userSignIn = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
+};
+
+exports.getUserByID = async(req, res, next) => {
+    // this route is protected
+    const user = req.user;
+    if(!user){
+        return res.status(401).json({
+            message: "You need to log in in order to get user info"
+        })
+    };
+
+    // console.log(user)
+
+    const userInfo = await User.findById(user.id).exec();
+    if(!userInfo){
+        return res.status(401).json({
+            message: "No user found for user id passed"
+        })
+    }
+
+    return res.status(200).json({
+        message: "Query succesfull",
+        userInfo
+    })
+
+
+};

@@ -103,7 +103,7 @@ const MobileNavbar = () => {
                            <img className="avatar-40 rounded" src="assets/images/notes_user.png" alt="user log" />
                     </div>
                     <div className={`dropdown-menu dropdown-menu-right w-100 border-0 py-2 ${userDropDown &&  'show'}`} aria-labelledby="h-dropdownMenuButton001">
-                        <Link to="/home" className="dropdown-item mb-2">
+                        <Link to="/profile" className="dropdown-item mb-2">
                             <ProfileIcon />
                             <span className="mt-2"> My Profile</span>
                         </Link>

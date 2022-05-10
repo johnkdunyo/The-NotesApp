@@ -10,9 +10,10 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 const MySwal = withReactContent(Swal);
 
-const NoteComponent = ({noteID, noteColor, noteSize, noteDescription, noteDate, notePriority}) => {
+const NewNoteComponent = ({noteID, noteColor, noteSize, noteTitle, noteDescription, noteDate, notePriority}) => {
     // console.log(noteID)
     const componentColor =  noteColor ? noteColor : 'primary';
+    noteTitle = noteTitle? noteTitle : 'Note Title';
     noteDescription = noteDescription ? noteDescription : 'With The NotesApp, you can easily share via message, WhatsApp, emails etc. You can also save your notes and edit it later or can easily delete the note';
     noteDate = noteDate ? new Date(noteDate).toDateString() : '01 May 2022'
     notePriority = notePriority ? notePriority : 'low'
@@ -101,8 +102,26 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteDescription, noteDate, 
                     </div>
                 </div>
                 <div className="card-body rounded">
-                <div dangerouslySetInnerHTML={{ __html: noteDescription }} />
-                    {/* <p className="mb-4 card-description short">{noteDescription}</p> */}
+                    {/* <h4 className="card-title">{noteTitle}</h4> */}
+                    <div className="mb-4 card-description short">
+                        {/* {noteDescription} */}
+                        <div dangerouslySetInnerHTML={{ __html: noteDescription }} />
+                    </div>
+                    {/* <div className='items-list mt-4'>
+                        <h4 className="card-title">Tasks for the Day</h4>
+                        <div className="checkbox mb-2">
+                            <input type="checkbox" className="checkbox-input mr-3" id="checkbox18"/>
+                            <label htmlFor="checkbox18" className="note-checkbox mb-0">Laundry</label>
+                        </div>
+                        <div className="checkbox mb-2">
+                            <input type="checkbox" className="checkbox-input mr-3" id="checkbox19"/>
+                            <label htmlFor="checkbox19" className="note-checkbox mb-0">Prepare stew for the week</label>
+                        </div>
+                        <div className="checkbox mb-2">
+                            <input type="checkbox" className="checkbox-input mr-3" id="checkbox20"/>
+                            <label htmlFor="checkbox20" className="note-checkbox mb-0">Rest</label>
+                        </div>
+                    </div> */}
                 </div>
                 <div className="card-footer">
                     <div className="d-flex align-items-end justify-content-between note-text note-text-white">
@@ -116,4 +135,4 @@ const NoteComponent = ({noteID, noteColor, noteSize, noteDescription, noteDate, 
   )
 }
 
-export default NoteComponent
+export default NewNoteComponent

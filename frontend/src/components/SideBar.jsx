@@ -46,6 +46,7 @@ const SideBar = () => {
 
                 <nav className="iq-sidebar-menu">
                   <ul id="iq-sidebar-toggle" className="iq-menu mt-5">
+
                     <li className='mb-3'>
                       <div className={`caption-content show-data ${notesDropDown && 'show'}`}> 
                         <button className='btn btn-outline-link' onClick={onClickNotesDropDownHandler}>
@@ -65,7 +66,7 @@ const SideBar = () => {
                       </div>
                     </li>
 
-                    <li className='mb-3'>
+                    <li className='mb'>
                       <div className={`caption-content show-data ${reminderDropDown && 'show'}`}> 
                         <button className='btn btn-outline-link' onClick={onClickReminderDropDownHandler}>
                           <BellIcon />{' '}
@@ -84,7 +85,7 @@ const SideBar = () => {
                       </div>
                     </li>
 
-                    <li>
+                    <li className='mb-3'>
                       <Link to="/trash" className='mb-0'> 
                         <button className='btn btn-outline'>
                           <TrashIcon />

@@ -29,6 +29,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isSigningUp, setIsSigningUp] = useState(false);
     const [signupFormError, setSignupFormError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const formHandler = (e) => {
         setSignupForm({...signupForm, [e.target.name]:e.target.value});
@@ -116,7 +117,7 @@ const Register = () => {
                                         <div className="form-group">
                                             <input 
                                                 className="floating-input form-control" 
-                                                type="password" 
+                                                type={showPassword ? 'text': 'password'}
                                                 placeholder="Password" 
                                                 name="password"
                                                 value={signupForm.password}
@@ -124,6 +125,9 @@ const Register = () => {
                                                 autoComplete='new-password'
                                                 required
                                             />
+                                            <div className="pass-eye" onClick={()=>setShowPassword(prev=>!prev)}>
+                                                <i className="fi-rr-eye"></i>
+                                             </div>
                                         </div>
                                     </div>
 
@@ -131,7 +135,7 @@ const Register = () => {
                                         <div className="form-group">
                                             <input 
                                                 className="floating-input form-control" 
-                                                type="password" 
+                                                type={showPassword ? 'text': 'password'}
                                                 placeholder="Confirm Password" 
                                                 name="ConfirmPassword"
                                                 value={confirmPassword}
@@ -139,6 +143,9 @@ const Register = () => {
                                                 autoComplete='new-password'
                                                 required
                                             />
+                                            <div className="pass-eye" onClick={()=>setShowPassword(prev=>!prev)}>
+                                                <i className="fi-rr-eye"></i>
+                                             </div>
                                         </div>
                                     </div>
                                     <div className="col-lg-12"><p className="text-red">{ signupForm.password !== confirmPassword && "Confirm Password does not match"}</p></div>

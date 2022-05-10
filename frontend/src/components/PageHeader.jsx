@@ -32,7 +32,7 @@ const PageHeader = ({pageTitle}) => {
                                   <img className="avatar-40 rounded" src="assets/images/notes_user.png" alt="#" data-original-title="" title="" />
                                 </div>
                                 <div className={`dropdown-menu dropdown-menu-right w-100 border-0 py-2 ${userDropDown &&  'show'}`} aria-labelledby="h-dropdownMenuButton001">
-                                  <Link to="/home" className="dropdown-item mb-2">
+                                  <Link to="/profile" className="dropdown-item mb-2">
                                       <i className="lar la-user-circle font-size-20 mr-1"></i>
                                       <span className="mt-2">My Profile</span>
                                   </Link>
