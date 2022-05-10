@@ -3,8 +3,10 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../components/Footer'
 import MobileNavbar from '../components/MobileNavbar'
-import NoteComponent from '../components/NoteComponent'
+import NewNoteComponent from '../components/NewNoteComponent'
+// import NoteComponent from '../components/NoteComponent'
 import PageHeader from '../components/PageHeader'
+import QuillTextBox from '../components/QuillTextBox'
 import SideBar from '../components/SideBar'
 
 // import { SettingsIcon, CommentsIcon, CameraIcon, BirthdayIcon ,FileIcon, CalendarIcon, NoteIcon, TimelineIcon, PaintIcon } from '../Icons'
@@ -26,22 +28,28 @@ const NewNote = () => {
     }
     const [noteForm, setNoteForm ] = useState(initialFormData);
     const [isCreatingNote, setIsCreatingNote ] = useState(false);
+    const [ textDescription, setTextDescription] = useState();
 
 
-const itemColors = [
-    {id: 1, value: 'white'},
-    {id: 2, value: 'warning'},
-    {id: 3, value: 'success'},
-    {id: 4, value: 'dark'},
-    {id: 5, value: 'purple'},
-    {id: 6, value: 'danger'},
-    {id: 7, value: "info"},
-    {id: 8, value: 'primary'}
-]
+    const itemColors = [
+        {id: 1, value: 'white'},
+        {id: 2, value: 'warning'},
+        {id: 3, value: 'success'},
+        {id: 4, value: 'dark'},
+        {id: 5, value: 'purple'},
+        {id: 6, value: 'danger'},
+        {id: 7, value: "info"},
+        {id: 8, value: 'primary'}
+    ]
 
     
     const formHandler =(e) => {
         setNoteForm( {...noteForm, [e.target.name]: e.target.value})
+    }
+
+    // custom handlder for the text description
+    const onChangeHandler = (value) => {
+        setTextDescription(value)
     }
 
 
@@ -59,6 +67,7 @@ const itemColors = [
         }
     }
     // console.log(noteForm)
+    console.log(textDescription)
 
   return (
     <React.Fragment>
@@ -75,7 +84,7 @@ const itemColors = [
                             <div className="col-md-8">
                                 <div className='card card-block card-stretch card-height p-3'>
                                 <form onSubmit={onSubmitFormHandler}>
-                                    <div className="form-group">
+                                    {/* <div className="form-group">
                                         <label className="label-control">Title</label>
                                         <input 
                                             type="text" 
@@ -88,10 +97,11 @@ const itemColors = [
                                             data-custom-target="#note-title"
                                             required
                                         />
-                                    </div>
+                                    </div> */}
                                     <div className="form-group">
-                                        <label className="label-control">Description</label>
-                                        <textarea 
+                                        <label className="label-control">New Note</label>
+                                        <QuillTextBox  onChangeHandler={onChangeHandler} value={textDescription} />
+                                        {/* <textarea 
                                             type="text" 
                                             className="form-control" 
                                             name="description" 
@@ -102,7 +112,7 @@ const itemColors = [
                                             value={noteForm.description}
                                             onChange={formHandler}
                                             required>
-                                        </textarea>
+                                        </textarea> */}
                                     </div>
                                     {/* <div className="form-group">
                                         <label className="label-control">Icon</label>
@@ -167,11 +177,11 @@ const itemColors = [
                             
                             </div>
                             <div className='col-md-4'>
-                                <NoteComponent 
+                                <NewNoteComponent 
                                     noteColor={noteForm.color} 
                                     noteSize='kk'
                                     noteTitle={noteForm.title}
-                                    noteDescription={noteForm.description}
+                                    noteDescription={textDescription}
                                     noteDate={noteForm.date}
                                     notePriority={noteForm.priority}
                                 />

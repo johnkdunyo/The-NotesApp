@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Footer from '../components/Footer'
 import MobileNavbar from '../components/MobileNavbar'
 import PageHeader from '../components/PageHeader'
 import SideBar from '../components/SideBar'
@@ -79,7 +80,7 @@ const Profile = () => {
                 </div>
             </div>
         </div>
-
+        <Footer /> 
     </React.Fragment>
   )
 }

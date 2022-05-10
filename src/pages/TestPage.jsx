@@ -1,6 +1,9 @@
 import React from 'react';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import QuillTextBox from '../components/QuillTextBox';
+
+
 
 const MySwal = withReactContent(Swal)
 
@@ -40,14 +43,20 @@ const onClickDelete = () => {
       })
 }
 
+
+
+
+
 const TestPage = () => {
   return (
     <React.Fragment>
-        <div className='container-fluid p-5 row'>
+        <div className='container-fluid p-5'>
             <div className='d-flex align-items-center justify-content-between'>
             <button className='btn btn-dark m-3' onClick={onButtonClick}>Click me</button>
             <button className='btn btn-purple m-3' onClick={onClickDelete} >Delete Button</button>
-            </div>
+          
+            </div> 
+            <QuillTextBox />
         </div>
     </React.Fragment>
   )
