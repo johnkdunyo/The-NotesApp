@@ -35,7 +35,7 @@ if(token){
     store.dispatch(logOutCurrentUser() );
   
     //redirect to login
-    window.location.href = '/signin';
+    window.location.href = '/login';
   } else  { 
     // token not expired and user is logged in. so we rooute to home
     // window.location.href = '/home'
